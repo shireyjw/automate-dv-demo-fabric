@@ -1,0 +1,17 @@
+SELECT
+    b.O_ORDERKEY AS ORDER_ID,
+    b.O_CUSTKEY AS CUSTOMER_ID,
+    b.O_ORDERDATE AS ORDER_DATE,
+    DATEADD(DAY, 20, b.O_ORDERDATE) AS TRANSACTION_DATE,
+    CAST(LEFT(CONCAT(b.O_ORDERKEY, b.O_CUSTKEY, CONVERT(VARCHAR(8),b.O_ORDERDATE, 112)) + REPLICATE('0', 24), 24) AS decimal(24,0)) AS TRANSACTION_NUMBER,
+    b.O_TOTALPRICE AS AMOUNT,
+    CAST(
+    CASE SUBSTRING(CAST(b.O_ORDERKEY AS VARCHAR(20)),1,1) 
+        WHEN '1' THEN 'DR'
+        WHEN '2' THEN 'DR'
+               ELSE 'CR'
+    END AS VARCHAR(2)) AS TYPE
+FROM {{ source('tpch_sample', 'orders') }}  AS b
+LEFT JOIN {{ source('tpch_sample', 'customer') }} AS c
+    ON b.O_CUSTKEY = c.C_CUSTKEY
+WHERE b.O_ORDERDATE = CONVERT(DATE,'{{ var('load_date') }}', 102)
