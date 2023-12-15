@@ -1,0 +1,12 @@
+fabric-demo:
+  target: dev
+  outputs:
+    dev:
+      type: fabric
+      driver: 'ODBC Driver 18 for SQL Server'
+      server: gk7vkl6uikzujkgcsmfmrmmcwi-kyye3it3rl4uhfszskumdl6n5m.datawarehouse.pbidedicated.windows.net
+      port: 1433
+      database: EDW
+      schema: dw
+      authentication: ActiveDirectoryInteractive
+      user: jonathan.shirey@adm.com
