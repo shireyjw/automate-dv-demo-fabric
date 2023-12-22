@@ -8,4 +8,4 @@ fabric-demo:
       port: 1433
       database: EDW
       schema: dw
-      authentication: ActiveDirectoryIntegrated
+      authentication: CLI
