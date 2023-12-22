@@ -8,4 +8,5 @@ fabric-demo:
       port: 1433
       database: EDW
       schema: dw
-      authentication: CLI
+      authentication: ActiveDirectoryInteractive
+      user: jonathan.shirey@adm.com
